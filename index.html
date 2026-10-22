@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PUNTO OBRA | Materiales para la construcción (sitio demo)</title>
+<meta name="description" content="Sitio demostrativo de un corralón de materiales, desarrollado por Vidrieras Web.">
+<meta name="theme-color" content="#25282b">
+<!--
+  =====================  GUÍA RÁPIDA DE PERSONALIZACIÓN  =====================
+  1. Datos del negocio, WhatsApp, redes, dirección, horarios, mapa y enlaces
+     de Vidrieras Web: objeto CONFIG al comienzo del <script> (más abajo).
+  2. Catálogo, precios e imágenes de productos: arreglo PRODUCTOS.
+     Precio: número = "precio ilustrativo"; null = "Consultar precio".
+  3. Categorías (nombre, descripción, imagen): arreglo CATEGORIAS.
+  4. Si un dato de CONFIG queda vacío, su enlace se oculta o se desactiva.
+  5. Publicación: subí este archivo como index.html a un repositorio de GitHub
+     y activá GitHub Pages. No requiere backend.
+  ===========================================================================
+-->
+<style>
+:root{--g:#25282b;--g2:#34383c;--c:#e4e1db;--c2:#cfcac2;--w:#faf8f5;--o:#ff6a13;--o2:#e85a06;--t:#1d1f21;--m:#5a5f64;--r:10px;--max:1160px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px;-webkit-text-size-adjust:100%}
+body{font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--t);background:var(--w);line-height:1.55;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{line-height:1.12;letter-spacing:-.01em;font-weight:800}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+section{padding:76px 0}
+.kick{display:inline-block;font-size:.78rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--o2);margin-bottom:10px}
+.sh{margin-bottom:34px;max-width:640px}
+.sh h2{font-size:clamp(1.7rem,4vw,2.5rem)}
+.sh p{color:var(--m);margin-top:10px}
+:focus-visible{outline:3px solid var(--o);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:700;padding:13px 22px;border-radius:8px;border:2px solid transparent;cursor:pointer;text-decoration:none;transition:background .2s,transform .2s,border-color .2s,color .2s;min-height:46px}
+.btn:active{transform:translateY(1px)}
+.b1{background:var(--o);color:#1a1a1a}.b1:hover{background:var(--o2)}
+.b2{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}.b2:hover{background:#fff;color:var(--g)}
+.b3{background:var(--g);color:#fff}.b3:hover{background:var(--g2)}
+.b4{background:transparent;border-color:var(--g);color:var(--g)}.b4:hover{background:var(--g);color:#fff}
+.btn.sm{padding:9px 14px;min-height:40px;font-size:.92rem}
+.btn[aria-disabled="true"],.btn:disabled{opacity:.5;cursor:not-allowed;pointer-events:none}
+[hidden]{display:none!important}
+svg.i{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* demo bar + header */
+.demo{background:var(--o);color:#1a1a1a;font-size:.82rem;font-weight:600;text-align:center;padding:7px 14px}
+header{position:sticky;top:0;z-index:50;background:var(--g);color:#fff;box-shadow:0 2px 12px rgba(0,0,0,.25)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:1.3rem;letter-spacing:.06em}
+.logo b{color:var(--o)}
+.logo i{width:22px;height:22px;background:var(--o);display:block;clip-path:polygon(0 0,100% 0,100% 100%,40% 100%,40% 40%,0 40%)}
+nav ul{display:flex;gap:6px;list-style:none;align-items:center}
+nav a.l{display:block;padding:10px 12px;text-decoration:none;font-weight:600;font-size:.95rem;border-radius:6px;color:#e8e8e8;transition:color .2s,background .2s}
+nav a.l:hover{color:var(--o);background:rgba(255,255,255,.06)}
+.burger{display:none;background:none;border:2px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;width:46px;height:46px;cursor:pointer}
+.burger span{display:block;width:20px;height:2px;background:#fff;margin:5px auto;transition:transform .25s,opacity .25s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+/* image placeholder with fallback */
+.ph{position:relative;background:repeating-linear-gradient(45deg,#3a3e42,#3a3e42 12px,#34383c 12px,#34383c 24px);overflow:hidden}
+.ph>em{position:absolute;inset:0;display:grid;place-items:center;font-style:normal;color:#bdbdbd;font-weight:700;font-size:.85rem;text-align:center;padding:10px}
+.ph>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+/* hero */
+.hero{position:relative;color:#fff;padding:0;min-height:calc(100vh - 100px);min-height:calc(100svh - 100px);display:flex;align-items:center}
+.hero .ph{position:absolute;inset:0}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,27,29,.92) 0,rgba(25,27,29,.72) 55%,rgba(25,27,29,.35))}
+.hero .wrap{position:relative;z-index:2;padding-top:56px;padding-bottom:56px}
+.hero h1{font-size:clamp(2.2rem,6.4vw,4.4rem);max-width:760px}
+.hero h1 span{color:var(--o)}
+.hero p.lead{font-size:clamp(1.05rem,2.2vw,1.25rem);max-width:560px;margin:18px 0 28px;color:#e6e6e6}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.pros{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px;max-width:820px}
+.pro{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);padding:14px;border-radius:var(--r);font-weight:600;font-size:.95rem;backdrop-filter:blur(4px)}
+.pro svg{color:var(--o)}
+/* categories */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.cat{background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--c);display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+.cat:hover{transform:translateY(-4px);box-shadow:0 14px 28px rgba(0,0,0,.12)}
+.cat:hover .ph>img,.prod:hover .ph>img{transform:scale(1.05)}
+.cat .ph{aspect-ratio:4/3}
+.cb{padding:16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.cb h3{font-size:1.05rem}.cb p{color:var(--m);font-size:.92rem;flex:1}
+/* catalog */
+#catalogo{background:var(--c)}
+.tools{display:grid;grid-template-columns:2fr 1.2fr 1fr;gap:12px;margin-bottom:14px}
+label.f{display:flex;flex-direction:column;gap:5px;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--g2)}
+input,select,textarea{font:inherit;font-size:1rem;padding:12px 13px;border:2px solid var(--c2);border-radius:8px;background:#fff;color:var(--t);width:100%;text-transform:none;letter-spacing:0;font-weight:400}
+input:focus,select:focus,textarea:focus{border-color:var(--o);outline:none}
+.count{color:var(--m);font-weight:600;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.prod{background:#fff;border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;border:1px solid var(--c2)}
+.prod .ph{aspect-ratio:4/3}
+.pb{padding:15px;display:flex;flex-direction:column;gap:6px;flex:1}
+.tag{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--o2)}
+.pb h3{font-size:1rem}.pb p{font-size:.88rem;color:var(--m);flex:1}
+.unit{font-size:.84rem;color:var(--g2)}
+.price{font-weight:800;font-size:1.1rem}
+.price small{display:block;font-weight:600;font-size:.72rem;color:var(--m)}
+.empty{grid-column:1/-1;text-align:center;padding:48px 20px;background:#fff;border-radius:var(--r);border:2px dashed var(--c2)}
+.empty h3{margin-bottom:8px}
+/* services */
+.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.s{padding:26px 22px;border:1px solid var(--c);border-radius:var(--r);background:#fff;border-top:4px solid var(--o)}
+.s svg{color:var(--g);width:34px;height:34px;margin-bottom:14px}
+.s h3{font-size:1.1rem;margin-bottom:8px}.s p{color:var(--m);font-size:.95rem}
+/* about */
+#nosotros{background:var(--g);color:#fff}
+.two{display:grid;grid-template-columns:1.1fr 1fr;gap:44px;align-items:center}
+#nosotros .ph{aspect-ratio:5/4;border-radius:var(--r)}
+#nosotros p{color:#d6d6d6;margin-top:14px}
+#nosotros .kick{color:var(--o)}
+/* conversion */
+.band{background:var(--o);color:#1a1a1a;padding:56px 0}
+.band .wrap{display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap}
+.band h2{font-size:clamp(1.7rem,4vw,2.6rem)}.band p{margin-top:8px;font-size:1.1rem;max-width:520px}
+/* faq */
+.faq{max-width:800px}
+details{background:#fff;border:1px solid var(--c);border-radius:var(--r);margin-bottom:10px}
+summary{cursor:pointer;padding:18px 20px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.5rem;color:var(--o2);transition:transform .2s;line-height:1}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 20px 18px;color:var(--m)}
+/* contact */
+#contacto{background:var(--c)}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.ci{list-style:none;display:grid;gap:14px}
+.ci li{display:flex;gap:14px;align-items:flex-start;background:#fff;padding:16px;border-radius:var(--r)}
+.ci svg{color:var(--o2)}.ci strong{display:block}.ci span,.ci a{color:var(--m)}
+.map{border-radius:var(--r);min-height:280px;display:grid;place-items:center;text-align:center;padding:24px;background:repeating-linear-gradient(0deg,#d9d5cd,#d9d5cd 1px,transparent 1px,transparent 28px),repeating-linear-gradient(90deg,#d9d5cd,#d9d5cd 1px,transparent 1px,transparent 28px),#ebe8e2}
+.map p{margin:8px 0 16px;color:var(--m)}
+/* vidrieras promo + footer */
+.vw{background:var(--w);padding:36px 0;border-top:1px solid var(--c)}
+.vw .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.vw p{max-width:600px;color:var(--m)}.vw strong{color:var(--t)}
+footer{background:#1a1c1e;color:#c9c9c9;padding:56px 0 0;font-size:.93rem}
+.fg{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:32px}
+footer h4{color:#fff;margin-bottom:12px;font-size:.9rem;text-transform:uppercase;letter-spacing:.1em}
+footer ul{list-style:none;display:grid;gap:8px}
+footer a{text-decoration:none}footer a:hover{color:var(--o)}
+.fb{margin-top:40px;border-top:1px solid #34383c;padding:20px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.85rem}
+.fb a{color:#fff;font-weight:600}
+/* quote drawer */
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.badge{background:var(--g);color:#fff;border-radius:99px;min-width:24px;height:24px;display:grid;place-items:center;font-size:.8rem;padding:0 7px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:70;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+.ov.on{opacity:1;visibility:visible}
+aside.dr{position:fixed;top:0;right:0;height:100%;width:min(440px,100%);background:#fff;z-index:80;transform:translateX(105%);transition:transform .3s;display:flex;flex-direction:column;visibility:hidden}
+aside.dr.on{transform:none;visibility:visible}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;background:var(--g);color:#fff}
+.dh h2{font-size:1.2rem}
+.x{background:none;border:0;color:#fff;font-size:1.8rem;cursor:pointer;width:44px;height:44px;line-height:1}
+.db{overflow:auto;padding:18px 20px;flex:1}
+.it{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:12px 0;border-bottom:1px solid var(--c)}
+.it small{color:var(--m);display:block}
+.qty{display:flex;align-items:center;gap:6px;grid-column:1/-1}
+.qty button{width:38px;height:38px;border-radius:8px;border:2px solid var(--c2);background:#fff;font-size:1.2rem;cursor:pointer;font-weight:700}
+.qty button:hover{border-color:var(--o)}
+.qty output{min-width:34px;text-align:center;font-weight:800}
+.qty .del{margin-left:auto;width:auto;padding:0 12px;font-size:.85rem;color:#a02020;font-weight:600}
+.df{display:grid;gap:12px;margin-top:18px}
+.err{color:#b3261e;font-size:.84rem;font-weight:600;min-height:1em}
+.st{font-size:.9rem;font-weight:600;min-height:1.2em}
+.toast{position:fixed;left:50%;bottom:84px;transform:translate(-50%,20px);background:var(--g);color:#fff;padding:11px 18px;border-radius:99px;z-index:90;opacity:0;transition:.25s;pointer-events:none;font-weight:600;font-size:.92rem;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+.js .rv.in{opacity:1;transform:none}
+@media(max-width:1020px){.cats,.grid,.svc{grid-template-columns:repeat(2,1fr)}.fg{grid-template-columns:1fr 1fr}.two,.cgrid{grid-template-columns:1fr}}
+@media(max-width:860px){
+ .burger{display:block}
+ nav ul{position:absolute;top:68px;left:0;right:0;background:var(--g);flex-direction:column;align-items:stretch;padding:10px 20px 20px;display:none;border-top:1px solid #3a3e42}
+ nav ul.on{display:flex}
+ nav a.l{padding:14px 8px}
+ .tools{grid-template-columns:1fr}
+}
+@media(max-width:560px){
+ section{padding:56px 0}
+ .cats,.grid,.svc,.fg,.pros{grid-template-columns:1fr}
+ .hero::after{background:rgba(25,27,29,.8)}
+ .cta .btn{width:100%}
+ .cats .cat,.grid .prod{max-width:100%}
+}
+/* ===== CAPA PREMIUM: color, luz y movimiento ===== */
+:root{--g:#14161a;--g2:#252a31;--c:#ebe6de;--c2:#d6d0c6;--w:#f8f5f0;--o:#ff7a1a;--o2:#d94f00;--m:#5b6068;--sh:0 1px 2px rgba(20,22,26,.06),0 10px 30px rgba(20,22,26,.08)}
+body{background:var(--w)}
+.prog{position:fixed;top:0;left:0;right:0;height:3px;z-index:100;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#ffb35c,#ff5e00);box-shadow:0 0 14px rgba(255,106,19,.8)}
+header{background:rgba(20,22,26,.78);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid rgba(255,255,255,.08);box-shadow:none;transition:background .3s,box-shadow .3s}
+header.sc{background:rgba(20,22,26,.96);box-shadow:0 8px 30px rgba(0,0,0,.35)}
+.logo i{background:linear-gradient(135deg,#ffa04d,#ff5e00);filter:drop-shadow(0 0 8px rgba(255,106,19,.55))}
+.btn{position:relative;overflow:hidden}
+.b1{background:linear-gradient(135deg,#ff9136,#ff5e00);color:#161616;box-shadow:0 6px 22px rgba(255,106,19,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+.b1:hover{background:linear-gradient(135deg,#ffa04d,#ff6a13);transform:translateY(-2px);box-shadow:0 10px 30px rgba(255,106,19,.5),inset 0 1px 0 rgba(255,255,255,.4)}
+.b1::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);transform:translateX(-130%);transition:transform .7s}
+.b1:hover::after{transform:translateX(130%)}
+.b3:hover,.b4:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(20,22,26,.25)}
+.kick{display:inline-flex;align-items:center;gap:10px}
+.kick::before{content:"";width:28px;height:2px;background:var(--o);box-shadow:0 0 8px var(--o)}
+.sh h2{background:linear-gradient(180deg,#14161a,#3a3f47);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* hero cinematográfico */
+.hero::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(60% 70% at 12% 30%,rgba(255,122,26,.3),transparent 60%),radial-gradient(40% 50% at 92% 95%,rgba(255,170,90,.18),transparent 70%)}
+.hero::after{z-index:1;background:linear-gradient(100deg,rgba(14,16,19,.95) 0,rgba(14,16,19,.7) 55%,rgba(14,16,19,.3)),linear-gradient(0deg,rgba(14,16,19,.75),transparent 40%)}
+.hero .wrap{z-index:3}
+.hero .ph>img{transition:none;transform:scale(1.12);will-change:transform}
+.hero h1 span{color:var(--o);text-shadow:0 0 38px rgba(255,122,26,.55)}
+.hero h1,.hero .lead,.hero .cta,.pros{animation:up .9s cubic-bezier(.2,.7,.2,1) both}
+.hero .lead{animation-delay:.15s}.hero .cta{animation-delay:.3s}.pros{animation-delay:.45s}
+.pro{background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.15),0 10px 30px rgba(0,0,0,.25);transition:transform .3s,border-color .3s}
+.pro:hover{transform:translateY(-3px);border-color:rgba(255,122,26,.7)}
+@keyframes up{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+/* tarjetas con luz que sigue el cursor */
+.cat,.prod,.s{position:relative;border-radius:14px;border:1px solid rgba(20,22,26,.07);box-shadow:var(--sh);transition:transform .35s,box-shadow .35s,border-color .35s}
+.cat::after,.prod::after,.s::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,122,26,.16),transparent 65%)}
+.cat:hover,.prod:hover,.s:hover{transform:translateY(-6px);border-color:rgba(255,122,26,.55);box-shadow:0 20px 44px rgba(20,22,26,.16),0 0 0 1px rgba(255,122,26,.25),0 0 34px rgba(255,122,26,.18)}
+.cat:hover::after,.prod:hover::after,.s:hover::after{opacity:1}
+.s{overflow:hidden;border-top:4px solid var(--o);background:linear-gradient(180deg,#fff,#fbf8f4)}
+.s svg{color:var(--o2);filter:drop-shadow(0 4px 10px rgba(255,122,26,.35))}
+.ph::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(14,16,19,.28))}
+.hero .ph::before{display:none}
+.prod{animation:up .6s cubic-bezier(.2,.7,.2,1) both}
+.prod:nth-child(4n+2){animation-delay:.06s}.prod:nth-child(4n+3){animation-delay:.12s}.prod:nth-child(4n+4){animation-delay:.18s}
+.price{color:var(--o2)}
+/* secciones */
+#productos{background:radial-gradient(60% 50% at 100% 0,rgba(255,122,26,.07),transparent 70%),var(--w)}
+#catalogo{background:linear-gradient(180deg,#ece6dd,#f6f2ec)}
+#servicios{background:radial-gradient(50% 60% at 0 100%,rgba(255,122,26,.08),transparent 70%),var(--w)}
+#nosotros{background:radial-gradient(70% 90% at 88% 0,rgba(255,122,26,.2),transparent 60%),radial-gradient(50% 60% at 0 100%,rgba(255,122,26,.08),transparent 70%),var(--g)}
+#nosotros .ph{box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.1),0 0 60px rgba(255,122,26,.18)}
+.band{position:relative;overflow:hidden;background:linear-gradient(120deg,#ff9a3c,#ff5e00)}
+.band::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 120% at 8% 0,rgba(255,255,255,.4),transparent 60%);pointer-events:none}
+.band .wrap{position:relative}
+.band .b3{box-shadow:0 10px 30px rgba(0,0,0,.35)}
+details{border-radius:12px;box-shadow:var(--sh);transition:border-color .25s,box-shadow .25s}
+details[open],details:hover{border-color:rgba(255,122,26,.55);box-shadow:0 12px 30px rgba(20,22,26,.12),0 0 26px rgba(255,122,26,.12)}
+#contacto{background:linear-gradient(180deg,#ece6dd,#f6f2ec)}
+.ci li{box-shadow:var(--sh);border-radius:12px;transition:transform .3s}
+.ci li:hover{transform:translateX(5px)}
+footer{background:radial-gradient(60% 80% at 50% 0,rgba(255,122,26,.1),transparent 70%),#0f1114}
+.dh{background:linear-gradient(135deg,#14161a,#252a31)}
+/* animaciones al hacer scroll */
+.js .rv{opacity:0;transform:translateY(34px) scale(.98);filter:blur(6px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),filter .8s}
+.js .rv.in{opacity:1;transform:none;filter:none}
+.js .two>.rv:last-child{transform:translateX(40px) scale(.96)}.js .two>.rv:last-child.in{transform:none}
+.js .sh.rv h2{transition-delay:.1s}
+@media(max-width:560px){.hero::after{background:rgba(14,16,19,.84)}.js .two>.rv:last-child{transform:translateY(30px)}}
+@media(prefers-reduced-motion:reduce){.js .rv{filter:none}.hero .ph>img{transform:none!important}*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}.js .rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="demo" role="note">Sitio de demostración: productos y precios ilustrativos. Configurá la información antes de usarlo comercialmente.</div>
+
+<div class="prog" id="prog" aria-hidden="true"></div>
+<header>
+ <div class="wrap nav">
+  <a class="logo" href="#inicio" aria-label="PUNTO OBRA, ir al inicio"><i></i><span>PUNTO <b>OBRA</b></span></a>
+  <nav aria-label="Principal">
+   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+   <ul id="menu">
+    <li><a class="l" href="#inicio">Inicio</a></li>
+    <li><a class="l" href="#productos">Productos</a></li>
+    <li><a class="l" href="#servicios">Servicios</a></li>
+    <li><a class="l" href="#nosotros">Nosotros</a></li>
+    <li><a class="l" href="#contacto">Contacto</a></li>
+    <li><button class="btn b1 sm" type="button" data-open-quote>Pedir presupuesto</button></li>
+   </ul>
+  </nav>
+ </div>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+ <div class="ph" data-img="hero" aria-hidden="true"></div>
+ <div class="wrap">
+  <h1>Todo para construir. <span>Todo en un solo lugar.</span></h1>
+  <p class="lead">Materiales de construcción, asesoramiento y entrega para que tu obra avance sin frenar.</p>
+  <div class="cta">
+   <a class="btn b1" href="#catalogo" data-cat="">Ver productos</a>
+   <a class="btn b2" data-wa="Hola! Quiero pedir un presupuesto por WhatsApp." target="_blank" rel="noopener">Pedir presupuesto por WhatsApp</a>
+  </div>
+  <div class="pros">
+   <div class="pro"><svg class="i" data-ic="box"></svg>Amplia variedad de materiales</div>
+   <div class="pro"><svg class="i" data-ic="user"></svg>Atención personalizada</div>
+   <div class="pro"><svg class="i" data-ic="truck"></svg>Entregas coordinadas para tu obra</div>
+  </div>
+ </div>
+</section>
+
+<section id="productos">
+ <div class="wrap">
+  <div class="sh rv"><span class="kick">Productos</span><h2>Categorías para cada etapa de la obra</h2><p>Elegí una categoría para explorar el catálogo.</p></div>
+  <div class="cats" id="cats"></div>
+ </div>
+</section>
+
+<section id="catalogo">
+ <div class="wrap">
+  <div class="sh rv"><span class="kick">Catálogo de ejemplo</span><h2>Armá tu solicitud de presupuesto</h2><p>Los valores son ilustrativos y no representan precios vigentes. Consultá los precios actualizados por WhatsApp.</p></div>
+  <div class="tools" role="search">
+   <label class="f">Buscar por nombre<input type="search" id="q" placeholder="Ej.: cemento, hierro, ladrillo" autocomplete="off"></label>
+   <label class="f">Categoría<select id="fc"></select></label>
+   <label class="f">Ordenar<select id="so"><option value="az">Nombre (A–Z)</option><option value="za">Nombre (Z–A)</option></select></label>
+  </div>
+  <p class="count" id="count" aria-live="polite"></p>
+  <div class="grid" id="grid"></div>
+ </div>
+</section>
+
+<section id="servicios">
+ <div class="wrap">
+  <div class="sh rv"><span class="kick">Servicios</span><h2>Acompañamos tu obra de principio a fin</h2></div>
+  <div class="svc">
+   <article class="s rv"><svg class="i" data-ic="chat"></svg><h3>Asesoramiento para tu obra</h3><p>Te ayudamos a elegir los materiales adecuados según lo que vas a construir.</p></article>
+   <article class="s rv"><svg class="i" data-ic="list"></svg><h3>Cotización de materiales</h3><p>Armá tu lista y recibí un presupuesto preparado por nuestro equipo.</p></article>
+   <article class="s rv"><svg class="i" data-ic="truck"></svg><h3>Entregas coordinadas</h3><p>Coordinamos la entrega según zona y disponibilidad, a confirmar con el negocio.</p></article>
+   <article class="s rv"><svg class="i" data-ic="users"></svg><h3>Atención a particulares y profesionales</h3><p>Tanto para una reforma en casa como para obras de mayor escala.</p></article>
+  </div>
+ </div>
+</section>
+
+<section id="nosotros">
+ <div class="wrap two">
+  <div class="rv"><span class="kick">Nosotros</span><h2 style="font-size:clamp(1.7rem,4vw,2.5rem)">Un corralón pensado para resolver</h2>
+   <p>Texto editable: contá aquí la historia de tu negocio, cómo trabajan y qué valoran sus clientes. Evitá afirmaciones que no puedas comprobar.</p>
+   <p>PUNTO OBRA es una marca ficticia creada para mostrar cómo puede verse un corralón en internet.</p></div>
+  <div class="ph rv" data-img="about" role="img" aria-label="Materiales y herramientas en una obra"></div>
+ </div>
+</section>
+
+<div class="band">
+ <div class="wrap">
+  <div><h2>¿Estás por empezar una obra?</h2><p>Contanos qué necesitás y prepará tu presupuesto con nuestro equipo.</p></div>
+  <a class="btn b3" data-wa="Hola! Estoy por empezar una obra y quiero hacer una consulta." target="_blank" rel="noopener">Consultar por WhatsApp</a>
+ </div>
+</div>
+
+<section id="faq">
+ <div class="wrap">
+  <div class="sh rv"><span class="kick">Preguntas frecuentes</span><h2>Lo que más nos consultan</h2></div>
+  <div class="faq">
+   <details><summary>¿Cómo puedo pedir un presupuesto?</summary><p>Agregá productos a tu lista desde el catálogo, completá tus datos y enviá el pedido por WhatsApp. El equipo te responderá con la cotización.</p></details>
+   <details><summary>¿Puedo consultar por materiales que no aparecen en el catálogo?</summary><p>Sí. El catálogo es una selección de ejemplo; escribinos y confirmaremos la disponibilidad de otros materiales.</p></details>
+   <details><summary>¿Realizan entregas?</summary><p>Las condiciones de entrega, zonas y costos se confirman con el negocio al momento de pedir el presupuesto.</p></details>
+   <details><summary>¿Venden a particulares y profesionales?</summary><p>Atendemos consultas de particulares y profesionales. Las condiciones comerciales se acuerdan con el negocio.</p></details>
+   <details><summary>¿Cómo consulto los precios actualizados?</summary><p>Los valores del sitio son ilustrativos. Para conocer precios y disponibilidad vigentes, consultá por WhatsApp.</p></details>
+  </div>
+ </div>
+</section>
+
+<section id="contacto">
+ <div class="wrap">
+  <div class="sh rv"><span class="kick">Contacto</span><h2>Hablemos de tu obra</h2></div>
+  <div class="cgrid">
+   <ul class="ci">
+    <li><svg class="i" data-ic="phone"></svg><div><strong>Teléfono</strong><a data-link="tel" id="cTel"></a></div></li>
+    <li><svg class="i" data-ic="chat"></svg><div><strong>WhatsApp</strong><a data-wa="Hola! Quiero hacer una consulta." target="_blank" rel="noopener">Escribinos por WhatsApp</a></div></li>
+    <li data-need="instagram"><svg class="i" data-ic="cam"></svg><div><strong>Instagram</strong><a data-link="instagram" target="_blank" rel="noopener" id="cIg"></a></div></li>
+    <li><svg class="i" data-ic="pin"></svg><div><strong>Dirección</strong><span id="cDir"></span></div></li>
+    <li><svg class="i" data-ic="clock"></svg><div><strong>Horarios</strong><span id="cHor"></span></div></li>
+   </ul>
+   <div class="map"><div><svg class="i" data-ic="pin" style="width:40px;height:40px;color:var(--o2)"></svg><p>Espacio para el mapa de tu negocio.</p><a class="btn b3" data-link="maps" target="_blank" rel="noopener">Ver en Google Maps</a></div></div>
+  </div>
+ </div>
+</section>
+</main>
+
+<div class="vw">
+ <div class="wrap">
+  <p><strong>¿Tenés un corralón o negocio de materiales?</strong> Creamos una web a medida para mostrar tus productos y recibir consultas.</p>
+  <a class="btn b4 sm" data-link="vwContacto" target="_blank" rel="noopener">Quiero una web para mi negocio</a>
+ </div>
+</div>
+
+<footer>
+ <div class="wrap">
+  <div class="fg">
+   <div><a class="logo" href="#inicio" style="color:#fff"><i></i><span>PUNTO <b>OBRA</b></span></a><p style="margin-top:12px">Todo para construir, todo en un solo lugar. Sitio web demostrativo.</p></div>
+   <div><h4>Navegación</h4><ul><li><a href="#inicio">Inicio</a></li><li><a href="#productos">Productos</a></li><li><a href="#servicios">Servicios</a></li><li><a href="#nosotros">Nosotros</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
+   <div><h4>Categorías</h4><ul id="fcats"></ul></div>
+   <div><h4>Contacto</h4><ul><li id="fTel"></li><li id="fDir"></li><li id="fHor"></li><li><a data-link="instagram" target="_blank" rel="noopener" id="fIg"></a></li></ul></div>
+  </div>
+  <div class="fb"><span>© <span id="yr"></span> PUNTO OBRA · Sitio demostrativo: productos y precios ilustrativos.</span><span>Sitio web desarrollado por <a data-link="vidrieras" target="_blank" rel="noopener">Vidrieras Web</a></span></div>
+ </div>
+</footer>
+
+<button class="btn b1 fab" type="button" id="fab" data-open-quote aria-haspopup="dialog">Mi presupuesto <span class="badge" id="badge">0</span></button>
+<div class="ov" id="ov"></div>
+<aside class="dr" id="dr" role="dialog" aria-modal="true" aria-labelledby="dt">
+ <div class="dh"><h2 id="dt">Solicitud de presupuesto</h2><button class="x" type="button" id="dx" aria-label="Cerrar">×</button></div>
+ <div class="db">
+  <div id="items"></div>
+  <p id="sum" style="margin-top:12px;font-weight:700"></p>
+  <div class="df" id="form" novalidate>
+   <label class="f">Nombre *<input id="fn" autocomplete="name" aria-describedby="en"></label><p class="err" id="en"></p>
+   <label class="f">Localidad *<input id="fl" autocomplete="address-level2" aria-describedby="el"></label><p class="err" id="el"></p>
+   <label class="f">Mensaje (opcional)<textarea id="fm" rows="3"></textarea></label>
+   <button class="btn b1" type="button" id="send">Enviar pedido por WhatsApp</button>
+   <p class="st" id="st" role="status" aria-live="polite"></p>
+   <p style="font-size:.8rem;color:var(--m)">Esto es una solicitud de presupuesto, no una compra. Los valores son ilustrativos.</p>
+  </div>
+ </div>
+</aside>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===================== CONFIGURACIÓN (EDITÁ ACÁ) ===================== */
+const CONFIG = {
+  nombre: "PUNTO OBRA",
+  whatsapp: "",          // Solo números con código de país. Ej.: "5491122334455"
+  telefono: "",          // Ej.: "+54 11 1234-5678"
+  instagram: "",         // URL completa. Ej.: "https://instagram.com/tu_usuario"
+  direccion: "Configurá aquí la dirección de tu negocio",
+  horarios: "Configurá aquí los horarios de atención",
+  maps: "",              // Enlace de Google Maps
+  vidrieras: "",         // Web principal de Vidrieras Web
+  vidriorasContacto: ""  // Enlace de contacto de Vidrieras Web (no es el de Punto Obra)
+};
+/* Imágenes generales (reemplazalas por fotos propias) */
+const IMG = {
+  hero: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1600&q=70",
+  about: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=900&q=70"
+};
+/* Categorías: k = clave interna */
+const CATEGORIAS = [
+  {k:"cem",n:"Cementos y adhesivos",d:"Cementos, adhesivos y morteros para cada trabajo.",img:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=70"},
+  {k:"ari",n:"Arena, piedra y áridos",d:"Áridos para hormigones, contrapisos y rellenos.",img:"https://images.unsplash.com/photo-1590496793929-36417d3117de?auto=format&fit=crop&w=600&q=70"},
+  {k:"lad",n:"Ladrillos y bloques",d:"Mampostería para muros y cerramientos.",img:"https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=600&q=70"},
+  {k:"hie",n:"Hierros y mallas",d:"Armaduras y refuerzos para estructuras.",img:"https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=70"},
+  {k:"cal",n:"Cal y yeso",d:"Terminaciones, revoques y enlucidos.",img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=70"},
+  {k:"cha",n:"Chapas y perfiles",d:"Cubiertas y estructuras livianas.",img:"https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=600&q=70"},
+  {k:"ais",n:"Aislantes e impermeabilizantes",d:"Protección contra humedad y pérdidas térmicas.",img:"https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=70"},
+  {k:"her",n:"Herramientas y accesorios",d:"Lo necesario para trabajar en obra.",img:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=600&q=70"}
+];
+/* Productos de ejemplo. p: número = precio ILUSTRATIVO; null = "Consultar precio".
+   img: dejá "" para usar la imagen de la categoría, o pegá una URL propia. */
+const PRODUCTOS = [
+  {id:1,n:"Cemento Portland 50 kg",c:"cem",d:"Uso general para hormigones y morteros.",u:"bolsa",p:9800,img:""},
+  {id:2,n:"Adhesivo cementicio 25 kg",c:"cem",d:"Para colocación de cerámicos y porcelanatos.",u:"bolsa",p:6200,img:""},
+  {id:3,n:"Arena fina",c:"ari",d:"Ideal para revoques y terminaciones.",u:"m³",p:null,img:""},
+  {id:4,n:"Piedra partida 6-20",c:"ari",d:"Para hormigones y bases de contrapiso.",u:"m³",p:null,img:""},
+  {id:5,n:"Ladrillo hueco 12x18x33",c:"lad",d:"Para muros no portantes.",u:"unidad",p:650,img:""},
+  {id:6,n:"Bloque de hormigón 20 cm",c:"lad",d:"Bloque para muros de mampostería.",u:"unidad",p:1100,img:""},
+  {id:7,n:"Hierro nervado 8 mm",c:"hie",d:"Barra para armaduras de columnas y vigas.",u:"barra de 12 m",p:7500,img:""},
+  {id:8,n:"Malla electrosoldada Q188",c:"hie",d:"Panel para losas y contrapisos.",u:"panel",p:null,img:""},
+  {id:9,n:"Cal hidratada 25 kg",c:"cal",d:"Para mezclas, revoques y blanqueos.",u:"bolsa",p:4300,img:""},
+  {id:10,n:"Yeso de construcción 30 kg",c:"cal",d:"Para enlucidos interiores.",u:"bolsa",p:5100,img:""},
+  {id:11,n:"Chapa acanalada galvanizada",c:"cha",d:"Cubierta resistente para techos y galpones.",u:"metro",p:null,img:""},
+  {id:12,n:"Perfil C galvanizado",c:"cha",d:"Estructura para techos y construcción en seco.",u:"barra",p:null,img:""},
+  {id:13,n:"Membrana asfáltica con aluminio",c:"ais",d:"Impermeabilización de techos y terrazas.",u:"rollo",p:null,img:""},
+  {id:14,n:"Hidrófugo para mezclas",c:"ais",d:"Aditivo para revoques resistentes a la humedad.",u:"balde 10 L",p:3900,img:""},
+  {id:15,n:"Pala ancha reforzada",c:"her",d:"Para mezclar y trasladar material.",u:"unidad",p:8900,img:""},
+  {id:16,n:"Carretilla reforzada",c:"her",d:"Rueda con cámara y chasis metálico.",u:"unidad",p:null,img:""}
+];
+/* ===================== FIN DE CONFIGURACIÓN ===================== */
+
+document.documentElement.classList.add("js");
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const ICONS={box:"M21 8l-9-5-9 5v8l9 5 9-5V8zM3 8l9 5 9-5M12 13v8",user:"M12 12a4 4 0 100-8 4 4 0 000 8zM4 21a8 8 0 0116 0",users:"M9 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zM2 21a7 7 0 0114 0M17 4a3.5 3.5 0 010 7M22 21a7 7 0 00-4-6",truck:"M2 6h12v10H2zM14 10h4l4 3v3h-8M7 19a2 2 0 100-4 2 2 0 000 4zM17 19a2 2 0 100-4 2 2 0 000 4z",chat:"M21 12a8 8 0 01-11.6 7.1L3 21l1.9-5.4A8 8 0 1121 12z",list:"M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01",phone:"M5 3h4l2 5-2.5 1.5a11 11 0 006 6L16 13l5 2v4a2 2 0 01-2 2A16 16 0 013 5a2 2 0 012-2z",cam:"M4 4h16v16H4zM12 16a4 4 0 100-8 4 4 0 000 8zM17.5 6.5h.01",pin:"M12 21s-7-6.2-7-11a7 7 0 1114 0c0 4.8-7 11-7 11zM12 12a2.5 2.5 0 100-5 2.5 2.5 0 000 5z",clock:"M12 21a9 9 0 100-18 9 9 0 000 18zM12 7v5l3 2"};
+$$("svg[data-ic]").forEach(s=>{s.setAttribute("viewBox","0 0 24 24");s.setAttribute("aria-hidden","true");s.innerHTML='<path d="'+ICONS[s.dataset.ic]+'"/>'});
+
+/* Utilidades */
+const esc=t=>String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const waNum=(CONFIG.whatsapp||"").replace(/\D/g,"");
+const waURL=t=>waNum?"https://wa.me/"+waNum+"?text="+encodeURIComponent(t):"";
+const money=n=>"$ "+n.toLocaleString("es-AR");
+const catName=k=>(CATEGORIAS.find(c=>c.k===k)||{}).n||"";
+const catImg=k=>(CATEGORIAS.find(c=>c.k===k)||{}).img||"";
+/* Imagen con respaldo: si falla, queda el recuadro con el texto */
+const pic=(src,alt,label)=>'<em>'+esc(label)+'</em>'+(src?'<img src="'+esc(src)+'" alt="'+esc(alt)+'" loading="lazy" onerror="this.remove()">':"");
+
+/* Imágenes fijas */
+$$("[data-img]").forEach(el=>{const k=el.dataset.img;el.innerHTML=pic(IMG[k],k==="hero"?"Obra en construcción":"Materiales de obra",CONFIG.nombre)});
+
+/* Enlaces configurables: se ocultan o desactivan si faltan datos */
+const L={instagram:CONFIG.instagram,maps:CONFIG.maps,vidrieras:CONFIG.vidrieras,vwContacto:CONFIG.vidriorasContacto||CONFIG.vidrieras};
+$$("[data-link]").forEach(a=>{
+  const k=a.dataset.link;
+  if(k==="tel"){ if(CONFIG.telefono){a.href="tel:"+CONFIG.telefono.replace(/[^\d+]/g,"");a.textContent=CONFIG.telefono}else{a.textContent="Configurá aquí tu teléfono";a.removeAttribute("href")} return }
+  if(L[k]){a.href=L[k]; if(k==="instagram")a.textContent="Instagram"}
+  else if(a.classList.contains("btn")){a.setAttribute("aria-disabled","true");a.removeAttribute("href");a.title="Enlace sin configurar"}
+  else if(k==="vidrieras"){a.removeAttribute("href");a.style.textDecoration="none"}
+  else{const li=a.closest("li");(li||a).hidden=true}
+});
+$$("[data-wa]").forEach(a=>{
+  const u=waURL(a.dataset.wa);
+  if(u)a.href=u; else{a.setAttribute("aria-disabled","true");a.classList.add("btn");a.title="Configurá el número de WhatsApp en CONFIG";if(!a.classList.contains("b1")&&!a.classList.contains("b2")&&!a.classList.contains("b3")){a.classList.add("b4","sm")}}
+});
+$("#cDir").textContent=$("#fDir").textContent=CONFIG.direccion;
+$("#cHor").textContent=$("#fHor").textContent=CONFIG.horarios;
+$("#fTel").textContent=CONFIG.telefono||"Configurá aquí tu teléfono";
+$("#yr").textContent=new Date().getFullYear();
+
+/* Categorías */
+$("#cats").innerHTML=CATEGORIAS.map(c=>`<article class="cat rv"><div class="ph" role="img" aria-label="${esc(c.n)}">${pic(c.img,c.n,c.n)}</div><div class="cb"><h3>${esc(c.n)}</h3><p>${esc(c.d)}</p><button class="btn b4 sm" type="button" data-cat="${c.k}">Consultar</button></div></article>`).join("");
+$("#fcats").innerHTML=CATEGORIAS.slice(0,6).map(c=>`<li><a href="#catalogo" data-cat="${c.k}">${esc(c.n)}</a></li>`).join("");
+$("#fc").innerHTML='<option value="">Todas las categorías</option>'+CATEGORIAS.map(c=>`<option value="${c.k}">${esc(c.n)}</option>`).join("");
+
+/* Catálogo */
+const norm=t=>t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+function renderCat(){
+  const q=norm($("#q").value.trim()),c=$("#fc").value,o=$("#so").value;
+  let r=PRODUCTOS.filter(p=>(!c||p.c===c)&&(!q||norm(p.n).includes(q)));
+  r.sort((a,b)=>a.n.localeCompare(b.n,"es")*(o==="za"?-1:1));
+  $("#count").textContent=r.length+(r.length===1?" producto encontrado":" productos encontrados");
+  $("#grid").innerHTML=r.length?r.map(p=>`<article class="prod"><div class="ph" role="img" aria-label="${esc(p.n)}">${pic(p.img||catImg(p.c),p.n,p.n)}</div><div class="pb"><span class="tag">${esc(catName(p.c))}</span><h3>${esc(p.n)}</h3><p>${esc(p.d)}</p><span class="unit">Unidad de venta: ${esc(p.u)}</span><div class="price">${p.p!=null?money(p.p)+"<small>Precio ilustrativo</small>":"Consultar precio"}</div><button class="btn b3 sm" type="button" data-add="${p.id}">Agregar al presupuesto</button></div></article>`).join(""):`<div class="empty"><h3>No encontramos productos</h3><p>Probá con otra palabra o cambiá la categoría.</p><button class="btn b4 sm" type="button" id="clr" style="margin-top:14px">Limpiar filtros</button></div>`;
+}
+["input","change"].forEach(e=>{$("#q").addEventListener(e,renderCat);$("#fc").addEventListener(e,renderCat);$("#so").addEventListener(e,renderCat)});
+function goCat(k){$("#fc").value=k||"";$("#q").value="";renderCat();$("#catalogo").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})}
+
+/* Presupuesto */
+const quote=new Map();
+let toastT;
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("on");clearTimeout(toastT);toastT=setTimeout(()=>e.classList.remove("on"),2000)}
+function renderQuote(){
+  let n=0;quote.forEach(v=>n+=v);$("#badge").textContent=n;
+  $("#items").innerHTML=quote.size?[...quote].map(([id,q])=>{const p=PRODUCTOS.find(x=>x.id===id);return `<div class="it"><div><strong>${esc(p.n)}</strong><small>${esc(p.u)} · ${p.p!=null?money(p.p)+" (ilustrativo)":"Consultar precio"}</small></div><div class="qty"><button type="button" data-act="dec" data-id="${id}" aria-label="Reducir cantidad de ${esc(p.n)}">−</button><output aria-live="polite">${q}</output><button type="button" data-act="inc" data-id="${id}" aria-label="Aumentar cantidad de ${esc(p.n)}">+</button><button type="button" class="del" data-act="del" data-id="${id}">Eliminar</button></div></div>`}).join(""):'<p style="color:var(--m)">Tu lista está vacía. Agregá productos desde el catálogo.</p>';
+  $("#sum").textContent=quote.size?"Resumen: "+quote.size+(quote.size===1?" producto":" productos")+", "+n+(n===1?" unidad":" unidades")+" en total.":"";
+}
+let lastFocus;
+function openQ(){lastFocus=document.activeElement;$("#dr").classList.add("on");$("#ov").classList.add("on");document.body.style.overflow="hidden";$("#dx").focus()}
+function closeQ(){$("#dr").classList.remove("on");$("#ov").classList.remove("on");document.body.style.overflow="";if(lastFocus)lastFocus.focus()}
+function send(){
+  const n=$("#fn").value.trim(),l=$("#fl").value.trim(),m=$("#fm").value.trim();
+  $("#en").textContent=n?"":"Ingresá tu nombre.";$("#el").textContent=l?"":"Ingresá tu localidad.";
+  const st=$("#st");st.style.color="#b3261e";
+  if(!quote.size){st.textContent="Agregá al menos un producto a la lista.";return}
+  if(!n||!l){st.textContent="Completá los campos obligatorios.";(n?$("#fl"):$("#fn")).focus();return}
+  const lines=[...quote].map(([id,q])=>{const p=PRODUCTOS.find(x=>x.id===id);return "- "+q+" x "+p.n+" ("+p.u+")"});
+  const msg="Hola! Quiero pedir un presupuesto a "+CONFIG.nombre+".\n\nProductos:\n"+lines.join("\n")+"\n\nNombre: "+n+"\nLocalidad: "+l+(m?"\nMensaje: "+m:"");
+  const u=waURL(msg);
+  if(!u){st.textContent="Falta configurar el número de WhatsApp del negocio (CONFIG.whatsapp).";return}
+  st.style.color="#1b6e34";st.textContent="Abriendo WhatsApp con tu pedido…";
+  window.open(u,"_blank","noopener");
+}
+
+/* Eventos globales */
+document.addEventListener("click",e=>{
+  const t=e.target.closest("button,a");if(!t)return;
+  if(t.dataset.add){const id=+t.dataset.add;quote.set(id,(quote.get(id)||0)+1);renderQuote();toast("Agregado a tu presupuesto");return}
+  if(t.dataset.act){const id=+t.dataset.id,q=quote.get(id)||0;
+    if(t.dataset.act==="inc")quote.set(id,Math.min(q+1,999));
+    if(t.dataset.act==="dec"){q>1?quote.set(id,q-1):quote.delete(id)}
+    if(t.dataset.act==="del")quote.delete(id);
+    renderQuote();return}
+  if(t.dataset.cat!==undefined&&(t.dataset.cat||t.tagName==="A")){e.preventDefault();goCat(t.dataset.cat);closeMenu();return}
+  if(t.hasAttribute("data-open-quote")){openQ();closeMenu();return}
+  if(t.id==="clr"){$("#q").value="";$("#fc").value="";renderCat()}
+});
+$("#dx").onclick=closeQ;$("#ov").onclick=closeQ;$("#send").onclick=send;
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeQ();closeMenu()}});
+/* Foco atrapado dentro del panel */
+$("#dr").addEventListener("keydown",e=>{if(e.key!=="Tab")return;const f=$$("#dr button,#dr input,#dr textarea").filter(x=>!x.disabled&&x.offsetParent);const a=f[0],b=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===a){e.preventDefault();b.focus()}else if(!e.shiftKey&&document.activeElement===b){e.preventDefault();a.focus()}});
+/* Menú móvil */
+const burger=$("#burger"),menu=$("#menu");
+function closeMenu(){menu.classList.remove("on");burger.setAttribute("aria-expanded","false");burger.setAttribute("aria-label","Abrir menú")}
+burger.onclick=()=>{const o=menu.classList.toggle("on");burger.setAttribute("aria-expanded",o);burger.setAttribute("aria-label",o?"Cerrar menú":"Abrir menú")};
+$$("#menu a").forEach(a=>a.addEventListener("click",closeMenu));
+/* Animaciones de entrada */
+if("IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}}),{threshold:.12});$$(".rv").forEach(el=>io.observe(el))}else{$$(".rv").forEach(el=>el.classList.add("in"))}
+
+/* Efectos premium de scroll */
+const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+$$(".cats,.svc").forEach(g=>[...g.children].forEach((c,i)=>c.style.transitionDelay=(i%4)*90+"ms"));
+const extra=$$(".ci li,.map,details,.band .wrap>*,.vw .wrap>*,.fg>*");
+extra.forEach((e,i)=>{e.classList.add("rv");if(e.matches("details,.ci li"))e.style.transitionDelay=(i%5)*70+"ms"});
+if("IntersectionObserver" in window){const o2=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o2.unobserve(x.target)}}),{threshold:.1});extra.forEach(e=>o2.observe(e))}else{extra.forEach(e=>e.classList.add("in"))}
+const pg=$("#prog"),hd=$("header");let tk=false;
+function onS(){const y=scrollY,h=document.documentElement.scrollHeight-innerHeight;
+  pg.style.transform="scaleX("+(h>0?y/h:0)+")";hd.classList.toggle("sc",y>30);
+  if(!RM&&y<innerHeight*1.3){const i=$(".hero .ph img");if(i)i.style.transform="translateY("+y*.18+"px) scale(1.12)"}
+  tk=false}
+addEventListener("scroll",()=>{if(!tk){tk=true;requestAnimationFrame(onS)}},{passive:true});onS();
+/* Luz que sigue al cursor en tarjetas */
+document.addEventListener("pointermove",e=>{const c=e.target.closest&&e.target.closest(".cat,.prod,.s");if(c){const r=c.getBoundingClientRect();c.style.setProperty("--mx",e.clientX-r.left+"px");c.style.setProperty("--my",e.clientY-r.top+"px")}});
+
+renderCat();renderQuote();
+</script>
+</body>
+</html>
